@@ -11,7 +11,7 @@ def get_groq_client():
         return None
     return Groq(api_key=api_key)
 
-def enhance_prompt_internally(client, user_prompt):
+def enhance_prompt_internally(client, user_prompt, model="llama-3.3-70b-versatile"):
     """Uses a quick secondary API call to enhance the user's prompt."""
     if not client:
         return user_prompt
@@ -25,7 +25,7 @@ def enhance_prompt_internally(client, user_prompt):
     
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=model,
             messages=[
                 {"role": "system", "content": enhancement_system_prompt},
                 {"role": "user", "content": f"Enhance this prompt: '{user_prompt}'"}
@@ -34,15 +34,13 @@ def enhance_prompt_internally(client, user_prompt):
             max_tokens=256
         )
         enhanced = completion.choices[0].message.content.strip()
-        # Ensure it doesn't just wrap in quotes
         if enhanced.startswith('"') and enhanced.endswith('"'):
             enhanced = enhanced[1:-1]
         return enhanced
     except Exception as e:
-        # Fallback to original prompt on error
         return user_prompt
 
-def generate_follow_up_questions(client, conversation_history, latest_response):
+def generate_follow_up_questions(client, conversation_history, latest_response, model="llama-3.3-70b-versatile"):
     """Generates 3 relevant follow-up questions based on the chat context."""
     if not client:
         return []
@@ -53,7 +51,6 @@ def generate_follow_up_questions(client, conversation_history, latest_response):
         "Return them as a simple numbered list (1., 2., 3.) without any other text or explanation."
     )
     
-    # Send a truncated context to save tokens (last 4 messages + the latest response)
     context_msgs = conversation_history[-4:] if len(conversation_history) > 4 else conversation_history
     
     messages = [{"role": "system", "content": system_prompt}]
@@ -63,18 +60,16 @@ def generate_follow_up_questions(client, conversation_history, latest_response):
     
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=model,
             messages=messages,
             temperature=0.7,
             max_tokens=150
         )
         content = completion.choices[0].message.content.strip()
         
-        # Parse the numbered list
         questions = []
         for line in content.split('\n'):
             line = line.strip()
-            # Remove numbering (e.g., "1. ", "2. ")
             if len(line) > 2 and line[0].isdigit() and (line[1] == '.' or line[1] == ')'):
                 q = line[2:].strip()
                 if q:
@@ -84,27 +79,25 @@ def generate_follow_up_questions(client, conversation_history, latest_response):
     except Exception:
         return []
 
-def get_chat_completion_stream(client, messages, persona, length, tone):
+def get_chat_completion_stream(client, messages, persona, length, tone, model="llama-3.3-70b-versatile", context_window=2048):
     """Returns a streaming response from the Groq API."""
     if not client:
         raise ValueError("Groq client is not initialized. API key missing.")
         
-    # Build system prompt from settings
     sys_prompt = f"{config.PERSONAS.get(persona, config.PERSONAS['General Assistant'])} "
     sys_prompt += f"{config.LENGTH_MODIFIERS.get(length, '')} "
     sys_prompt += f"{config.TONE_MODIFIERS.get(tone, '')}"
     
     api_messages = [{"role": "system", "content": sys_prompt}]
     
-    # Add conversation history
     for msg in messages:
         api_messages.append({"role": msg["role"], "content": msg["content"]})
         
     stream = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model=model,
         messages=api_messages,
         temperature=0.7,
-        max_tokens=2048,
+        max_tokens=context_window,
         stream=True
     )
     

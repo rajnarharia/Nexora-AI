@@ -1,25 +1,24 @@
-# NovaMind AI ✨
+# Nexora AI 🌌
 
-**Your Intelligent AI Workspace**
+**The Next Generation AI Workspace**
 
-NovaMind AI is a premium, modern, and highly customizable AI assistant built with Streamlit and powered by the Groq API. It transforms standard chat interfaces into a professional workspace suitable for coding, research, studying, and more.
+Nexora AI is an ultra-premium, highly customizable AI assistant built with Streamlit and powered by advanced LLM Engines via the Groq API. It transforms standard chat interfaces into a professional workspace featuring glassmorphism design, advanced settings, and smart AI capabilities.
 
 ## 🚀 Features
 
-- **Modern Professional UI**: A sleek, dark-themed interface with custom CSS for a premium feel.
-- **AI Personality Modes**: Switch between General Assistant, Coding Expert, Study Tutor, Research Assistant, Creative Writer, and Career Advisor.
-- **Smart Response Controls**: Adjust the length (Short, Medium, Detailed) and tone (Professional, Friendly, Simple) of the AI's responses.
-- **Conversation Memory**: Remembers your chat history during the session for seamless follow-up questions.
-- **Streaming Responses**: Real-time typewriter effect for faster reading and better UX.
-- **Prompt Enhancer (Beta)**: Automatically refines and improves your prompt internally before sending it to the AI to get better results.
-- **Smart Follow-up Suggestions**: Predicts and suggests 3 relevant follow-up questions after every AI response.
-- **Export Conversation**: Download your entire chat history in TXT or Markdown format.
-- **Chat Statistics**: Track your message counts directly in the sidebar.
+- **Ultra-Premium Glassmorphism UI**: High-end styling with animated gradients, blur effects, and sleek dark mode aesthetics.
+- **Dynamic Neural Engines**: Seamlessly switch between Llama 3 (70B), Mixtral (8x7B), and Gemma (7B) on the fly.
+- **AI Persona Configuration**: Choose from General Assistant, Coding Expert, Study Tutor, Data Analyst, Creative Writer, and Career Advisor.
+- **Advanced Context & Output Settings**: Adjust output length, tone, and control the exact max output tokens.
+- **Plugins & Tools Simulation**: Visual toggles for Mock Web Search and File Upload context simulation for a complete SaaS feel.
+- **Neural Prompt Enhancer**: Automatically refines and optimizes your prompt via an internal API call before generating the response.
+- **Smart Follow-up Suggestions**: Generates contextual next-steps and logical paths after every AI response.
+- **Advanced Analytics**: Track user messages, AI responses, and estimated token usage dynamically in the sidebar.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: [Streamlit](https://streamlit.io/)
-- **AI Model API**: [Groq](https://groq.com/) (Llama-3.3-70b-versatile)
+- **Frontend**: [Streamlit](https://streamlit.io/) with Custom Glassmorphism CSS
+- **AI Engine**: [Groq API](https://groq.com/)
 - **Environment Management**: python-dotenv
 
 ## ⚙️ Installation & Setup
@@ -45,7 +44,6 @@ NovaMind AI is a premium, modern, and highly customizable AI assistant built wit
    ```env
    GROQ_API_KEY=your_actual_groq_api_key_here
    ```
-   *Note: Never share your API key or commit the `.env` file to version control.*
 
 ## 🏃‍♂️ How to Run Locally
 
@@ -55,8 +53,5 @@ streamlit run app.py
 ```
 The application will open automatically in your default web browser at `http://localhost:8501`.
 
-## 📸 Screenshots
-*(Add screenshots of the Welcome screen, Chat interface, and Sidebar settings here)*
-
 ---
-Built with ❤️ using Streamlit & Groq.
+Built with 🌌 using Streamlit & Groq.

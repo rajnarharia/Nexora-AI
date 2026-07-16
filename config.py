@@ -1,100 +1,148 @@
 # config.py
 import streamlit as st
 
-APP_NAME = "NovaMind AI"
-APP_TAGLINE = "Your Intelligent AI Workspace"
+APP_NAME = "Nexora AI"
+APP_TAGLINE = "The Next Generation AI Workspace"
 
-# Premium Dark Theme CSS
+# Ultra-Premium Glassmorphism & Animated CSS
 CUSTOM_CSS = """
 <style>
-    /* Global Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
     :root {
-        --bg-color: #0E1117;
-        --secondary-bg: #1E2129;
-        --text-color: #E0E6ED;
-        --accent-color: #6C5CE7;
-        --accent-hover: #8172F2;
-        --user-bubble: #2D3748;
-        --ai-bubble: #1A202C;
+        --bg-color: #050505;
+        --secondary-bg: rgba(25, 25, 25, 0.6);
+        --text-color: #FAFAFA;
+        --accent-color: #00F0FF;
+        --accent-secondary: #FF007F;
+        --user-bubble: rgba(45, 55, 72, 0.5);
+        --ai-bubble: rgba(20, 20, 25, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.08);
     }
     
-    body {
-        color: var(--text-color);
+    body, .stApp {
         background-color: var(--bg-color);
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(0, 240, 255, 0.1) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(255, 0, 127, 0.1) 0px, transparent 50%);
+        background-attachment: fixed;
+        color: var(--text-color);
     }
     
-    /* Headers & Tagline */
+    /* Animated Title */
     .title-wrapper {
         text-align: center;
-        padding-top: 2rem;
-        padding-bottom: 1rem;
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+        animation: fadeInDown 0.8s ease-out;
     }
     
     .main-title {
         font-weight: 800;
-        font-size: 2.5rem;
-        background: linear-gradient(90deg, #6C5CE7, #00D2D3);
+        font-size: 3.5rem;
+        background: linear-gradient(270deg, var(--accent-color), var(--accent-secondary), #8A2BE2);
+        background-size: 200% 200%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 0.2rem;
+        animation: gradientAnimation 5s ease infinite;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
     }
     
     .tagline {
-        font-size: 1rem;
+        font-size: 1.1rem;
         color: #A0AEC0;
         font-weight: 400;
-        letter-spacing: 0.5px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
         margin-top: 0;
     }
 
-    /* Suggestion Cards */
+    /* Glassmorphism Suggestion Cards */
     .suggestion-card {
-        background-color: var(--secondary-bg);
-        border: 1px solid #2D3748;
-        border-radius: 12px;
-        padding: 1rem;
+        background: var(--secondary-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 1.5rem;
         margin-bottom: 1rem;
         text-align: center;
         cursor: pointer;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
     .suggestion-card:hover {
-        background-color: #2D3748;
+        background: rgba(40, 40, 45, 0.8);
         border-color: var(--accent-color);
-        transform: translateY(-2px);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 240, 255, 0.15);
     }
     
     .suggestion-text {
-        font-size: 0.95rem;
+        font-size: 1rem;
         color: var(--text-color);
         font-weight: 500;
     }
     
-    /* Code Blocks */
+    /* Code Blocks styling */
     pre {
-        background-color: #12151C !important;
-        border-radius: 8px !important;
-        border: 1px solid #2D3748 !important;
+        background-color: #000000 !important;
+        border-radius: 12px !important;
+        border: 1px solid var(--glass-border) !important;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
     
-    /* Adjust Streamlit specific containers */
+    code {
+        color: #E2E8F0 !important;
+    }
+    
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(10, 10, 12, 0.85) !important;
+        backdrop-filter: blur(20px);
+        border-right: 1px solid var(--glass-border);
+    }
+    
+    /* Chat Input Container */
     .stChatInputContainer {
-        border-radius: 16px !important;
-        border: 1px solid #2D3748 !important;
-        background-color: var(--secondary-bg) !important;
+        border-radius: 24px !important;
+        border: 1px solid var(--glass-border) !important;
+        background: rgba(20, 20, 25, 0.8) !important;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    /* Animations */
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 </style>
 """
 
 # AI Personas
 PERSONAS = {
-    "General Assistant": "You are NovaMind AI, a highly capable, helpful, and professional AI assistant. You provide clear, accurate, and concise answers.",
-    "Coding Expert": "You are NovaMind AI, a senior software engineer and coding expert. You write clean, efficient, and well-documented code. Always wrap code in Markdown blocks and explain the logic clearly.",
-    "Study Tutor": "You are NovaMind AI, a patient and knowledgeable tutor. Break down complex topics into easily understandable pieces, use analogies, and encourage the user to think critically.",
-    "Research Assistant": "You are NovaMind AI, an academic research assistant. Provide well-structured, objective, and analytical answers. Cite hypothetical sources or methodologies where appropriate.",
-    "Creative Writer": "You are NovaMind AI, a creative and expressive writer. Use vivid language, storytelling techniques, and imaginative ideas to assist the user with their creative tasks.",
-    "Career Advisor": "You are NovaMind AI, a professional career coach. Provide actionable, realistic, and encouraging advice on resumes, interviews, and professional development."
+    "General Assistant": "You are Nexora AI, a highly advanced, ultra-intelligent AI. You provide clear, accurate, and concise answers.",
+    "Coding Expert": "You are Nexora AI, an elite software architect and 10x engineer. You write elegant, optimized, and robust code. Always wrap code in Markdown blocks.",
+    "Study Tutor": "You are Nexora AI, a brilliant academic tutor. Break down complex topics into easily understandable pieces, use analogies, and encourage critical thinking.",
+    "Data Analyst": "You are Nexora AI, a senior data scientist. You provide analytical, data-driven insights and structure your responses with clear metrics and logical deductions.",
+    "Creative Writer": "You are Nexora AI, an imaginative and expressive creative writer. Use vivid language, storytelling techniques, and compelling narratives.",
+    "Career Advisor": "You are Nexora AI, a top-tier executive career coach. Provide actionable, realistic, and highly strategic advice on professional growth."
+}
+
+# New Advanced Models
+MODELS = {
+    "Llama 3 (70B)": "llama-3.3-70b-versatile",
+    "Mixtral (8x7B)": "mixtral-8x7b-32768",
+    "Gemma (7B)": "gemma-7b-it"
 }
 
 # Response Length Prompts
@@ -108,5 +156,5 @@ LENGTH_MODIFIERS = {
 TONE_MODIFIERS = {
     "Professional": "Use a formal, professional, and business-appropriate tone.",
     "Friendly": "Use a warm, conversational, friendly, and approachable tone.",
-    "Simple": "Explain things using very simple language, avoiding jargon where possible."
+    "Direct": "Be brutally honest, direct, and skip any pleasantries."
 }
