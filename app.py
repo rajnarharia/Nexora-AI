@@ -1,26 +1,42 @@
+from dotenv import load_dotenv
+load_dotenv()
 
-from dotenv import load_dotenv 
-load_dotenv() 
-import streamlit as st 
-import os 
-import google.generativeai as genai 
+import os
+import streamlit as st
+from groq import Groq
 
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-model = genai.GenerativeModel("gemini-2.0-flash") 
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
 
 def my_output(query):
-    response = model.generate_content(query) 
-    return response.text 
+    completion = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "user",
+                "content": query
+            }
+        ],
+        temperature=0.7,
+        max_tokens=1024
+    )
 
-#### UI Development using streamlit 
+    return completion.choices[0].message.content
 
-st.set_page_config(page_title="Sync_pro_bot")
-st.header("Sync_pro_bot") 
-input = st.text_input("Input " , key = "input")  
-submit = st.button("Ask your query") 
+# ------------------ UI ------------------
 
-if submit :
-    response = my_output(input) 
-    st.subheader("The Response is=")
-    st.write(response)
+st.set_page_config(page_title="Chat_Bot")
+st.header("Chat_Bot")
+
+user_input = st.text_input("Ask your question")
+
+if st.button("Submit Query"):
+    if user_input.strip() == "":
+        st.warning("Please enter a question.")
+    else:
+        with st.spinner("Thinking..."):
+            answer = my_output(user_input)
+
+        st.subheader("Answer")
+        st.write(answer)
