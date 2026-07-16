@@ -5,7 +5,7 @@
   
   [![Made with Streamlit](https://img.shields.io/badge/Made%20with-Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](#)
   [![Powered by Groq](https://img.shields.io/badge/Powered%20by-Groq-f55036?style=for-the-badge)](#)
-  [![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-00F0FF?style=for-the-badge&logo=streamlit)](#)
+  [![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-00F0FF?style=for-the-badge&logo=streamlit)](https://nexora-ai-t36pc2nxbwq6kataeuzula.streamlit.app)
 </div>
 
 <br>
