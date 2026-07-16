@@ -2,6 +2,8 @@
 
 **The Next Generation AI Workspace**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-00F0FF?style=for-the-badge&logo=streamlit)](#) *(Replace `#` with your actual Streamlit Community Cloud or deployment link)*
+
 Nexora AI is an ultra-premium, highly customizable AI assistant built with Streamlit and powered by advanced LLM Engines via the Groq API. It transforms standard chat interfaces into a professional workspace featuring glassmorphism design, advanced settings, and smart AI capabilities.
 
 ## 🚀 Features
